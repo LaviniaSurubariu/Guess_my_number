@@ -1,7 +1,6 @@
-import 'dart:ffi';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() {
@@ -29,16 +28,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String subtitle1 = "I'm thinking of a number between 1 and 100.";
   String subtitle2 = "It's your turn to guess my number!";
-  String cardTitle = "Try a number!";
+  String cardTitle = 'Try a number!';
   int randomNumber = 1;
   int valueOfNumber = 0;
   int isLess = -1;
-  final fieldText = TextEditingController();
-  String buttonText = "Guess";
+  final TextEditingController fieldText = TextEditingController();
+  String buttonText = 'Guess';
   bool isGuessed = false;
 
   void getRandomNumber(int min, int max) {
-    final random = Random();
+    final Random random = Random();
     randomNumber = min + random.nextInt(max - min + 1);
   }
 
@@ -46,9 +45,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getRandomNumber(1, 100);
-    //afisarea in consola a numarului generat random
-    print(randomNumber);
-    // print(isLess);
+    // print(randomNumber);
   }
 
   void clearText() {
@@ -58,16 +55,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.blue,
-          title: const Text("Guess my number"),
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-          ),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        title: const Text('Guess my number'),
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 24,
         ),
-        body: SingleChildScrollView(
+      ),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             children: <Widget>[
               const SizedBox(height: 10),
@@ -85,22 +83,22 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               if (isLess == 1)
                 Text(
-                  "You tried $valueOfNumber\n"
-                  "Try higher",
+                  'You tried $valueOfNumber\n'
+                  'Try higher',
                   style: TextStyle(fontSize: 40, color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 )
               else if (isLess == 0)
                 Text(
-                  "You tried $valueOfNumber\n"
-                  "Try lower",
+                  'You tried $valueOfNumber\n'
+                  'Try lower',
                   style: TextStyle(fontSize: 40, color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 )
               else if (isLess == 2)
                 Text(
-                  "You tried $valueOfNumber\n"
-                  "You guessed right.",
+                  'You tried $valueOfNumber\n'
+                  'You guessed right.',
                   style: TextStyle(fontSize: 40, color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 ),
@@ -115,11 +113,10 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
-                      children: [
+                      children: <Widget>[
                         Text(
                           cardTitle,
-                          style:
-                              TextStyle(fontSize: 34, color: Colors.grey[600]),
+                          style: TextStyle(fontSize: 34, color: Colors.grey[600]),
                         ),
                         const SizedBox(height: 40),
                         SizedBox(
@@ -138,53 +135,57 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               //print(valueOfNumber);
                               clearText();
-                              setState(() {
-                                if (isGuessed) {
-                                  Phoenix.rebirth(context);
-                                }
+                              setState(
+                                () {
+                                  if (isGuessed) {
+                                    Phoenix.rebirth(context);
+                                  }
 
-                                if (valueOfNumber < randomNumber) {
-                                  isLess = 1;
-                                } else if (valueOfNumber > randomNumber) {
-                                  isLess = 0;
-                                } else {
-                                  isLess = 2;
-                                }
+                                  if (valueOfNumber < randomNumber) {
+                                    isLess = 1;
+                                  } else if (valueOfNumber > randomNumber) {
+                                    isLess = 0;
+                                  } else {
+                                    isLess = 2;
+                                  }
 
-                                if (isLess == 2) {
-                                  showDialog<String>(
+                                  if (isLess == 2) {
+                                    showDialog<String>(
                                       context: context,
                                       barrierDismissible: false,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                            title:
-                                                const Text('You guessed right'),
-                                            content:
-                                                Text('It was $valueOfNumber '),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                  setState(() {
-                                                    Phoenix.rebirth(context);
-                                                  });
+                                      builder: (BuildContext context) => AlertDialog(
+                                        title: const Text('You guessed right'),
+                                        content: Text('It was $valueOfNumber '),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              setState(
+                                                () {
+                                                  Phoenix.rebirth(context);
                                                 },
-                                                child: const Text('Try again!'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                  setState(() {
-                                                    buttonText = 'Reset';
-                                                    isGuessed = true;
-                                                  });
+                                              );
+                                            },
+                                            child: const Text('Try again!'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              setState(
+                                                () {
+                                                  buttonText = 'Reset';
+                                                  isGuessed = true;
                                                 },
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          ));
-                                }
-                              });
+                                              );
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                },
+                              );
 
                               //print(isLess);
                             },
@@ -196,6 +197,8 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
