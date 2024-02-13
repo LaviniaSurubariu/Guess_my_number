@@ -1,16 +1,13 @@
-# tema_2
+# Guess My Number
 
-A new Flutter project.
+"Guess My Number" is a Flutter application that allows you to play a simple number guessing game.
 
-## Getting Started
+## How to Play
 
-This project is a starting point for a Flutter application.
+The app generates a random number and your task is to guess it. If the number you tried is too low, the app will tell you to try a higher number. 
+If the number you tried is too high, the app will tell you to try a lower number. 
+When you guess the correct number, the app will confirm that you've guessed right.
 
-A few resources to get you started if this is your first Flutter project:
+## License
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This app is licensed under the MIT License. See LICENSE for details.
